@@ -6,7 +6,7 @@ const CreateMint = () => {
 
     const mintAccount = async () => {
         try {
-            const response = await fetch('@/app/api/createMint', {
+            const response = await fetch('/api/createMintData', {
                 method: 'POST',
             });
             const data = await response.json();

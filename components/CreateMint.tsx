@@ -1,21 +1,21 @@
 'use client';
 import React, { useState } from 'react';
-import { createMint } from "@solana/spl-token";
-import "dotenv/config";
-import { getKeypairFromEnvironment, getExplorerLink } from "@solana-developers/helpers";
-import { Connection, clusterApiUrl } from "@solana/web3.js";
-
 
 const CreateMint = () => {
-    const connection = new Connection(clusterApiUrl("devnet"));
-    const user = getKeypairFromEnvironment("SECRET_KEY");
     const [link, setLink] = useState('');
 
     const mintAccount = async () => {
         try {
-            const tokenMint = await createMint(connection, user, user.publicKey, null, 8);
-            const mintLink = getExplorerLink("address", tokenMint.toString(), "devnet");
-            setLink(mintLink);
+            const response = await fetch('@/app/api/createMint', {
+                method: 'POST',
+            });
+            const data = await response.json();
+            if (response.ok) {
+                const mintLink = `https://explorer.solana.com/address/${data.tokenMint}?cluster=devnet`;
+                setLink(mintLink);
+            } else {
+                console.error('Failed to create mint:', data.error);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -35,6 +35,5 @@ const CreateMint = () => {
         </div>
     );
 };
-
 
 export default CreateMint;

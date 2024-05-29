@@ -1,9 +1,11 @@
+import { FC } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
-const Navbar: React.FC = () => {
+const Navbar: FC = () => {
     return (
-        <nav className='w-full flex justify-between text-white'>
+        <nav className='w-full flex justify-between text-white z-50'>
             <ul className='w-full flex items-center justify-between py-4 px-10'>
                 <li>
                     <Link className='flex items-center gap-4' href="/">
@@ -17,12 +19,10 @@ const Navbar: React.FC = () => {
                     </Link>
                 </li>
                 <li>
-                    <p>Solana SPL-TOKEN Generator</p>    
+                    <span>Solana SPL-TOKEN Generator</span>    
                 </li>
                 <li>
-                    <Link href="/contact">
-                        <p>Contact</p>
-                    </Link>
+                    <WalletMultiButton />
                 </li>
             </ul>
         </nav>
